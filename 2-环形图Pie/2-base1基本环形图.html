@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>ECharts</title>
+		<!-- 引入 echarts.js -->
+		<script src="../js/echarts.min.js"></script>
+	</head>
+
+	<body>
+		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+		<div id="main" style="width: 600px;height:400px;"></div>
+
+		<script type="text/javascript">
+			// 基于准备好的dom，初始化echarts实例
+			var myChart = echarts.init(document.getElementById('main'));
+
+			var option = option = {
+				
+				// tooltip 提示框组件， 鼠标移动到图表上时显示相关信息
+				tooltip: {
+					show: true, // 是否显示提示框组件，包括提示框浮层和axisPointer
+					trigger: "item", // 触发类型，item(数据项图形触发，主要在散点图和饼状图等无类目的图表中使用)  axis(坐标轴触发，主要在柱状图和折线图等会使用类目轴的图表中使用)  none(什么都不触发)  
+					axisPointer: { //配置坐标轴指示器的快捷方式，基本上，坐标轴指示器的所有功能都能通过axisPointer来完成
+						type: "line",
+						axis: "auto",
+						snap: "",
+						z: "",
+						label: {},
+						lineStyle: {},
+						shadowStyle: {},
+						crossStyle: {},
+						
+					},
+					showContent: true, // 是否提示提示框浮层，默认显示，  只需tooltip 触发事件或者显示axisPointer而不需要显示内容时可配置该项为false
+					alwaysShowContent: false, // 是否永远显示提示框内容， 默认在移除可触发提示框区域后一定时间后隐藏，设置为true可保证一直显示提示框内容
+					triggerOn: "mouseover|click", // 提示框的触发条件，可选为mousemove 、click 、none 、 mousemove|click
+					showDelay: 0, //浮层的显示延迟
+					hideDelay: 100, // 浮层的隐藏延迟
+					enterable: false, // 鼠标是否可以进入到提示框的浮层中，默认为false,  如需详情内交互，如加按钮、链接，可设置为true
+					confine: false, // 是否将tooltip 框限制在图标的区域内
+					transitionDuration: 0.4, // 提示框浮层的移动动画过渡时间
+					position: [50%, 50%], // 提示框浮层的位置，默认不设置时位置会随着鼠标的位置移动而移动
+					formatter: "", // 复杂，看文档不同类型的图表其取值的方式不同 
+					backgroundColor: "", // 浮层框的背景颜色
+					borderColor: "", // 提示浮层框的边框颜色
+					borderWidth: "",  // 提示浮层框的边框的宽度
+					padding: 2,   // 提示浮层框的内边距
+					textStyle: {},
+					extraCssText: "box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);", //额外附加到浮层的 css 样式。
+					formatter: "{a} <br/>{b}: {c} ({d}%)"
+				},
+				//legend 图例组件展现了不同系列的标记(symbol)，颜色和名字。可以通过点击图例控制哪些系列不显示。
+				legend: {
+
+					type: "scroll", //图例的类型。可选值plain和scroll,其中 'plain'：普通图例。缺省就是普通图例。'scroll'：可滚动翻页的图例。当图例数量较多时可以使用。
+					id: "pieId001", //组件的id。默认不指定。指定则可用于在 option 或者 API 中引用组件。
+					show: true, //是否展示， 默认true
+					zlevel: 2, //所有图形的 zlevel 值。zlevel用于 Canvas 分层，不同zlevel值的图形会放置在不同的 Canvas 中，Canvas 分层是一种常见的优化手段。我们可以把一些图形变化频繁（例如有动画）的组件设置成一个单独的zlevel。需要注意的是过多的 Canvas 会引起内存开销的增大，在手机端上需要谨慎使用以防崩溃。zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。
+					z: 2, //组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。
+
+					top: 20, //图例组件离容器     上    侧的距离。值可为：10 、  20%  、 left 、 right  、center
+					right: "30%", //图例组件离容器     右        侧的距离。
+					bottom: "left", //图例组件离容器      下     侧的距离。
+					left: "center", //图例组件离容器    左     侧的距离。
+
+					width: 500, //number ,图例组件的宽度。默认自适应。
+					height: 40, //number ,图例组件的高度。默认自适应。
+
+					orient: 'horizontal', //图例列表的布局朝向。可为horizontal(水平)和vertical （垂直）
+
+					align: "left", //left  right  auto
+					padding: 20,
+					itemGap: 20, //图例每项之间的间隔。横向布局时为水平间隔，纵向布局时为纵向间隔。
+					itemWidth: 25, //图例标记(小方块)的图形宽度。
+					itemHeight: 14, //图例标记(小方块)的图形高度。
+					formatter: "{name}", //用来格式化图例文本，支持字符串模板和回调函数两种形式。
+
+					// 使用字符串模板，模板变量为图例名称 {name}
+//					formatter: 'Legend {name} 111',
+					// 使用回调函数
+//					formatter: function(name) {
+//						return 'Legend ' + name;
+//					}
+
+					selectedMode: true, //图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。默认开启图例选择，可以设成 false 关闭。除此之外也可以设成 'single' 或者 'multiple' 使用单选或者多选模式。
+					inactiveColor: "#aaa", //图例关闭时的颜色
+//					selected: , // 图例选中状态表。
+
+					textStyle: { //图例的公用文本样式。
+						color: "#839383",
+						fontStyle: "normal", // 文字字体的风格， normal  italic  oblique
+						fontWeight: 400, // 文字字体的粗细， normal   bold  bolder  lighter  100 200  300 ...
+//						fontFamily: , // 文字字体系列
+						fontSize: 20,   // 文字的字体大小
+						lineHeight: 20,  // 行高
+						backgroundColor: "#123456", //文字块背景色 
+						borderColor: "transparent", // 边框颜色 
+						borderWidth: 1,   // 边框宽度
+						borderRadius: 0,   // 边框圆角
+
+						padding: 5,   // 文字块的内边距
+						shadowColor: "#f00" , //文字块的背景阴影颜色
+						shadowBlur: 1 ,   // 文字块的背景阴影长度
+						shadowOffsetX: 0, // 文字块的背景阴影X偏移
+						shadowOffsetY: 0, // 文字块的背景阴影Y偏移
+						width: "100%",   // 文字块的宽度，一般不指定，自动为文字的宽度
+						height: 20,    // 文字块的高度，一般不指定，自动为文字的高度
+						textBorderColor: "#000000", // 文字本身的描边颜色
+						textBorderWidth: 0, // 文字本身的描边宽度
+						textShadowColor: "transparent", // 文字本身的阴影颜色
+						textShadowBlur: 1,  // 文字本身的阴影长度
+						textShadowOffsetX: 0, // 文字本身的阴影X偏移
+						textShadowOffsetY: 0, // 文字本身的阴影Y偏移
+
+						rich: {}
+					},
+					tooltip: {},
+
+					data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'], //data中配置显示的字段,但是只有在series中的数据的data字段中某项的name中的值才能显示
+
+					backgroundColor: "rgba(100,100,100,.4)", //图例背景色，默认透明
+					borderColor: "", //图例的边框颜色。
+					borderWidth: 2, //图例的边框宽度。
+					borderRadius: 2, // 圆角半径，5 或者 [2,3,4,5]表示左上，右上，右下，左下。
+					shadowBlur: 2, // 图形阴影的模糊大小。
+					shadowColor: "145646", //图形阴影的颜色
+					shadowOffsetX: 1, //阴影水平方向上的偏移距离。
+					shadowOffsetY: 1, //阴影垂直方向上的偏移距离。
+					scrollDataIndex: 0, //type 为 'scroll' 时有效。图例当前最左上显示项的 dataIndex。
+					pageButtonItemGap: 10, //type 为 'scroll' 时有效。图例控制块中，按钮和页信息之间的间隔。
+					pageButtonGap: 10, //.type 为 'scroll' 时有效。图例控制块和图例项之间的间隔。
+					pageButtonPosition: "start", // type 为 'scroll' 时有效。图例控制块的位置。可选值为：'start'：控制块在左或上。'end'：按钮快在右或下。
+					pageFormatter: '{current}/{total}', //type 为 'scroll' 时有效。图例控制块中，页信息的显示格式。默认为 '{current}/{total}'，其中 {current} 是当前页号（从 1 开始计数），{total} 是总页数。
+					pageIcon: {}, //type 为 'scroll' 时有效。图例控制块的图标。
+					pageIconColor: "#0f0", //type 为 'scroll' 时有效。翻页按钮的颜色。
+					pageIconInactiveColor: "#0ff" , // type 为 'scroll' 时有效。翻页按钮不激活时（即翻页到头时）的颜色。
+					pageIconSize: 20 , //type 为 'scroll' 时有效。翻页按钮的大小。可以是数字，也可以是数组，如 [10, 3]，表示 [宽，高]。
+					pageTextStyle: {//type 为 'scroll' 时有效。图例页信息的文字样式。
+						color: "#aaa",
+						fontStyle: "normal", // 文字字体的风格， normal  italic  oblique
+						fontWeight: 400, // 文字字体的粗细， normal   bold  bolder  lighter  100 200  300 ...
+//						fontFamily: , // 文字字体系列
+						fontSize: 20,   // 文字的字体大小
+						lineHeight: 40,  // 行高
+						
+						width: "100%",   // 文字块的宽度，一般不指定，自动为文字的宽度
+						height: 20,    // 文字块的高度，一般不指定，自动为文字的高度
+						
+						textBorderColor: "#000000", // 文字本身的描边颜色
+						textBorderWidth: 0, // 文字本身的描边宽度
+						textShadowColor: "transparent", // 文字本身的阴影颜色
+						textShadowBlur: 1,  // 文字本身的阴影长度
+						textShadowOffsetX: 0, // 文字本身的阴影X偏移
+						textShadowOffsetY: 0, // 文字本身的阴影Y偏移
+					}, 
+					animation: true, //boolean图例翻页是否使用动画。
+					animationDurationUpdate: 800, //number, 图例翻页时的动画时长
+				},
+				series: [{
+					name: '访问来源',
+					type: 'pie',
+					radius: ['50%', '70%'],
+					avoidLabelOverlap: false,
+					label: {
+						normal: {
+							show: false,
+							position: 'center'
+						},
+						emphasis: {
+							show: true,
+							textStyle: {
+								fontSize: '30',
+								fontWeight: 'bold'
+							}
+						}
+					},
+					labelLine: {
+						normal: {
+							show: false
+						}
+					},
+					data: [{
+							value: 335,
+							name: '直接访问'
+						},
+						{
+							value: 310,
+							name: '邮件营销'
+						},
+						{
+							value: 234,
+							name: '联盟广告'
+						},
+						{
+							value: 135,
+							name: '视频广告'
+						},
+						{
+							value: 1548,
+							name: '搜索引擎'
+						},
+						{
+							value: 310,
+							name: '邮件营销1'
+						},
+						{
+							value: 234,
+							name: '联盟广告1'
+						},
+						{
+							value: 135,
+							name: '视频广告1'
+						},
+						{
+							value: 1548,
+							name: '搜索引擎1'
+						}
+					]
+				}]
+			};
+
+			// 使用刚指定的配置项和数据显示图表。
+			myChart.setOption(option);
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>7天服务统计</title>
+		<script src="../js/echarts.min.js"></script>
+		<style type="text/css">
+			#container {
+				width: 800px;
+				height: 600px;
+				border: 1px solid #0f0;
+			}
+			
+			#box {
+				width: 400px;
+				height: 400px;
+				border: 1px solid #f00;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container" id="container">
+			<div id="box"></div>
+		</div>
+
+		<script>
+			var basechart = echarts.init(document.getElementById("box"));
+
+			var option = {
+				grid: {
+					top: 20,
+					left: 50,
+				},
+				
+				legend: {
+					top: 15,
+					right: 30,
+					data: [
+					  {
+					  	name: "日常巡检"
+					  },
+					  
+					  {
+					  	name: "日常巡检1"
+					  },
+					  
+					  {
+					  	name: "日常巡检2"
+					  },
+					  
+					  {
+					  	name: "日常巡检3"
+					  },
+					  {
+					  	name: "日常巡检4"
+					  }
+					],
+				},
+				xAxis: {
+					type: "value",
+					boundaryGap: false, //坐标轴不留白， 此时，数据刚好在刻度下方
+					data: [0, 0.2, 0.4, 0.6, 0.8, 1],
+					nameTextStyle: {
+						align: "left"
+					},
+				},
+				yAxis: {
+					type: "category",
+
+					axisPointer: {
+						type: "shadow",
+						show: true,						
+					},
+					
+					splitArea: {
+						areaStyle: {
+							shadowColor: "#f00",
+						},
+					},
+
+					data: ["09/15", "09/16", "09/17", "09/18", "09/19", "09/20", "09/21", "09/22", "09/23", "09/24", "09/25"],
+
+					//坐标轴刻度相关设置。
+					axisTick: {
+						show: false,
+					},
+
+					axisLabel: {
+						//						backgroundColor: "#f00",
+						//						shadowColor: "#f00",
+						//						textShadowColor: "#f00",
+						//						textShadowBlur: 2,
+					},
+
+				},
+				series: [
+				  {
+					type: "bar",
+					name: "日常巡检",
+					data: [0.15, 0.24, 0.37, 0.67, 0.91, 0.24],
+					areaStyle: {}
+				  },
+				  {
+					type: "bar",
+					name: "日常巡检1",
+					data: [0.32, 0.24, 0.1, 0.56, 0.67, 0.81, 0.13],
+					areaStyle: {}
+				  },
+				  {
+					type: "bar",
+					name: "日常巡检2",
+					data: [0.5,0.13,0.42,0.24,0.56,0.87,0.94,0.51],
+					areaStyle: {}
+				  },
+				  {
+					type: "bar",
+					name: "日常巡检3",
+					data: [0.23,0.15,0.43,0.36,0.9,0.22,0.68,0.74,0.95],
+					areaStyle: {}
+				  },
+				  {
+					type: "bar",
+					name: "日常巡检4",
+					data: [0.2,0.32,0.15,0.26,0.38,0.68,0.82,0.34],
+					areaStyle: {}
+				  },
+				
+				],
+
+
+
+			};
+			basechart.setOption(option);
+		</script>
+	</body>
+
+</html>

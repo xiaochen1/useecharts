@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>tooltip字段完整解析</title>
+		<style type="text/css">
+			.container {
+				width: 1000px;
+				height: auto;
+				margin: 0 auto;
+			}
+			
+			#basebox {
+				width: 600px;
+				height: 600px;
+				margin-right: 20px;
+				float: left;
+				border: 1px solid #0f9;
+			}
+		</style>
+		<script src="js/echarts.min.js"></script>
+	</head>
+
+	<body>
+
+		<p>grid直角坐标系内绘图网格，单个 grid 内最多可以放置上下两个 X 轴，左右两个 Y 轴。可以在网格上绘制折线图，柱状图，散点图（气泡图）。</p>
+
+		<div class="container">
+			<div class="box" id="basebox" style="width: 100%; height: 600px;"></div>
+
+		</div>
+
+		<script>
+			var basechart = echarts.init(document.getElementById('basebox')); //以basebox为容器，画图表
+
+			var colors = ['#5793f3', '#d14a61', '#675bba'];
+			var option = {
+
+				//提示框组件
+				tooltip: {
+					show: true, //是否显示提示框组件，包括提示框浮层和 axisPointer。
+					trigger: "axis", //触发类型。可为  "item" 、 "axis" 、 "none"
+
+					//坐标轴指示器配置项。
+					axisPointer: {
+						type: "cross",
+						axis: "auto",
+						snap: true,
+						z: 2,
+
+						//坐标轴指示器的文本标签。
+						label: {
+							show: true, // 默认false, 是否显示文本标签。如果 tooltip.axisPointer.type 设置为 'cross' 则默认显示标签，否则默认不显示。
+							precision: "auto", //文本标签中数值的小数点精度。默认根据当前轴的值自动判断。也可以指定如 2 表示保留两位小数。
+							formatter: null, //文本标签文字的格式化器。
+
+							margin: 3,
+							color: "#fff",
+							fontStyle: "normal",
+							fontFamily: "sans-serif", //还可以是 'serif' , 'monospace', 'Arial', 'Courier New', 'Microsoft YaHei',
+							fontSize: 12,
+							lineHeight: 13,
+							width: 100,
+							height: 100,
+
+							textBorderColor: "transparent",
+							textBorderWidth: 0,
+							textShadowColor: "transparent",
+							textShadowBlur: 0,
+							textShadowOffsetX: 0,
+							textShadowOffsetY: 0,
+							padding: 4,
+
+							backgroundColor: "auto",
+							borderColor: "auto",
+							borderWidth: 0,
+
+							shadowBlur: 3,
+							shadowColor: null,
+							shadowOffsetX: 0,
+							shadowOffsetY: 0,
+						},
+
+						//线样式配置，仅当 axisPointer的type为line时有效
+						lineStyle: {
+							color: "#555", //线的颜色。
+							width: 1, //线的宽度
+							type: "solid", //线的类型。可为 "solid"   "dashed"   "dotted"
+
+							shadowBlur: 2, //图形阴影的模糊大小。
+							shadowColor: "#aaa", //阴影颜色
+							shadowOffsetX: 0, //阴影水平方向上的偏移距离。
+							shadowOffsetY: 0, //阴影垂直方向上的偏移距离。
+							opacity: 0.3 //图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。							
+						},
+
+						//阴影样式配置，仅当 axisPointer的type为shadow时有效
+						shadowStyle: {
+							color: "#555", //线的颜色。
+
+							shadowBlur: 2, //图形阴影的模糊大小。
+							shadowColor: "#111", //阴影颜色
+							shadowOffsetX: 0, //阴影水平方向上的偏移距离。
+							shadowOffsetY: 0, //阴影垂直方向上的偏移距离。
+							opacity: 0.3 //图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。	
+						},
+
+						//cross样式配置，仅当 axisPointer的type为cross时有效
+						crossStyle: {
+							color: "#555", //线的颜色。
+							width: 1, //线的宽度
+							type: "solid", //线的类型。 可为 "solid"   "dashed"   "dotted"
+
+							shadowBlur: 2, //图形阴影的模糊大小。
+							shadowColor: "#111", //阴影颜色
+							shadowOffsetX: 0, //阴影水平方向上的偏移距离。
+							shadowOffsetY: 0, //阴影垂直方向上的偏移距离。
+							opacity: 0.3 //图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+						},
+					},
+					showContent: true, //是否显示提示框浮层，默认显示。只需tooltip触发事件或显示axisPointer而不需要显示内容时可配置该项为false。
+					alwaysShowContent: false, //是否永远显示提示框内容，默认情况下在移出可触发提示框区域后 一定时间 后隐藏，设置为 true 可以保证一直显示提示框内容。
+					triggerOn: "mousemove|click", //提示框触发的条件，mousemove   click   mousemove|click  none
+					showDelay: 0, //浮层显示的延迟，单位为 ms，默认没有延迟，也不建议设置。在 triggerOn 为 'mousemove' 时有效。
+					hideDelay: 100, //浮层隐藏的延迟，单位为 ms，在 alwaysShowContent 为 true 的时候无效。
+					enterable: false, //鼠标是否可进入提示框浮层中，默认为false，如需详情内交互，如添加链接，按钮，可设置为 true。
+					renderMode: "html", //浮层的渲染模式，默认以 'html 即额外的 DOM 节点展示 tooltip；此外还可以设置为 'richText' 表示以富文本的形式渲染，
+					confine: false, //是否将 tooltip 框限制在图表的区域内。当图表外层的 dom 被设置为 'overflow: hidden'，或者移动端窄屏，导致 tooltip 超出外界被截断时，此配置比较有用。
+
+					transitionDuration: 0.4, //提示框浮层的移动动画过渡时间，单位是 s，设置为 0 的时候会紧跟着鼠标移动。
+					position: "auto", //提示框浮层的位置，默认不设置时位置会跟随鼠标的位置。 top  right  bottom  left  inside
+					formatter: "",
+					backgroundColor: "#aaa", //提示框浮层的背景颜色。
+					borderColor: "#333", //提示框浮层的边框颜色。
+					borderWidth: 2, //提示框浮层的边框宽度。
+					padding: 5, //提示框浮层内边距，单位px，默认各方向内边距为5，接受数组分别设定上右下左边距。 [2,3,4,5]
+
+					//提示框浮层的文本样式。
+					textStyle: {
+						color: "#fff", //文字的颜色。
+						fontStyle: "normal", //文字风格
+						fontWeight: "normal", //文字字体的粗细
+						fontFamily: "sans-serif", //文字的字体系列
+						fontSize: 14, //文字的字体大小
+						lineHeight: 12, //行高。
+						width: 100, //文字块的宽度。一般不用指定，不指定则自动是文字的宽度。
+						height: 100, //文字块的高度。一般不用指定，不指定则自动是文字的高度。
+
+						textBorderColor: "transparent", //文字本身的描边颜色。
+						textBorderWidth: 0, //文字本身的描边宽度。
+
+						textShadowColor: "transparent", //文字本身的阴影颜色。
+						textShadowBlur: 0, //文字本身的阴影长度。
+						textShadowOffsetX: 2, //文字本身的阴影 X 偏移。
+						textShadowOffsetY: 5, //文字本身的阴影 Y 偏移。
+					},
+					extraCssText: 'box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);' //额外附加到浮层的 css 样式。
+				},
+
+				xAxis: [{
+					type: 'category',
+					axisTick: {
+						alignWithLabel: true
+					},
+					data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+				}],
+				yAxis: [{
+						type: 'value',
+						name: '蒸发量',
+						min: 0,
+						max: 250,
+						position: 'right',
+						axisLine: {
+							lineStyle: {
+								color: colors[0]
+							}
+						},
+						axisLabel: {
+							formatter: '{value} ml'
+						}
+					},
+					{
+						type: 'value',
+						name: '降水量',
+						min: 0,
+						max: 250,
+						position: 'right',
+						offset: 50,
+						axisLine: {
+							lineStyle: {
+								color: colors[1]
+							}
+						},
+						axisLabel: {
+							formatter: '{value} ml'
+						}
+					},
+					{
+						type: 'value',
+						name: '温度',
+						min: 0,
+						max: 25,
+						position: 'left',
+						axisLine: {
+							lineStyle: {
+								color: colors[2]
+							}
+						},
+						axisLabel: {
+							formatter: '{value} °C'
+						}
+					}
+				],
+				series: [{
+						name: '蒸发量',
+						type: 'bar',
+						data: [2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+					},
+					{
+						name: '降水量',
+						type: 'bar',
+						yAxisIndex: 1,
+						data: [2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+					},
+					{
+						name: '平均温度',
+						type: 'line',
+						yAxisIndex: 2,
+						data: [2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+					}
+				],
+
+				legend: {
+					data: ['蒸发量', '降水量', '平均温度']
+				},
+			}
+
+			basechart.setOption(option);
+		</script>
+	</body>
+
+</html>

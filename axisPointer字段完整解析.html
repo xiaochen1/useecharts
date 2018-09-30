@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>axisPointer字段完整解析</title>
+		<style type="text/css">
+			.container {
+				width: 1000px;
+				height: auto;
+				margin: 0 auto;
+			}
+			
+			#basebox {
+				width: 600px;
+				height: 600px;
+				margin-right: 20px;
+				float: left;
+				border: 1px solid #0f9;
+			}
+		</style>
+		<script src="js/echarts.min.js"></script>
+	</head>
+
+	<body>
+
+		<p>grid直角坐标系内绘图网格，单个 grid 内最多可以放置上下两个 X 轴，左右两个 Y 轴。可以在网格上绘制折线图，柱状图，散点图（气泡图）。</p>
+
+		<div class="container">
+			<div class="box" id="basebox" style="width: 100%; height: 600px;"></div>
+
+		</div>
+
+		<script>
+			var basechart = echarts.init(document.getElementById('basebox')); //以basebox为容器，画图表
+
+			var option = {
+				
+				
+				//这是坐标轴指示器（axisPointer）的全局公用设置。
+				axisPointer: {
+					id: "testaxispointer",
+					show: false,
+					//默认不显示。但是如果 tooltip.trigger 设置为 'axis' 或者 tooltip.axisPointer.type 设置为 'cross'，则自动显示 axisPointer。坐标系会自动选择显示显示哪个轴的 axisPointer，也可以使用 tooltip.axisPointer.axis 改变这种选择。
+					type: "line", //指示器类型。可选 'line' (直线指示器)、  'shadow' （阴影指示器）  、  'none' （无指示器）
+					snap: true, //坐标轴指示器是否自动吸附到点上。默认自动判断。
+					z: 1,  //坐标轴指示器的 z 值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。
+					
+					//坐标轴指示器的文本标签。
+					label: {
+						show: false,  //是否显示文本标签。如果 tooltip.axisPointer.type 设置为 'cross' 则默认显示标签，否则默认不显示。
+						precision: "auto", //文本标签中数值的小数点精度。默认根据当前轴的值自动判断。也可以指定如 2 表示保留两位小数。
+						formatter: null,
+						margin:3,
+						
+						color: "#fff",
+						fontStyle: "normal",
+						fontFamily: "normal",
+						fontSize: 12,
+						lineHeight: 12,
+						
+						width: 100,
+						height: 30,
+						
+						textBorderColor: "transparent",
+						textBorderWidth: 0,
+						textShadowColor: "transparent",
+						textShadowBlur: 0,
+						textShadowOffsetX: 0,
+						textShadowOffsety: 1,
+						
+						padding: 5,
+						backgroundColor: "auto",
+						borderColor: null,
+						borderWidth: 0,
+						
+						shadowBlur: 3,
+						shadowColor: "#aaa",
+						shadowOffsetX: 0,
+						shadowOffsetY: 1
+						
+					},  
+					lineStyle: {
+						color: "#fff",
+						width: 1,
+						type:"solid", //线的类型。 可选：'solid'   、  'dashed' 、  'dotted'
+						
+						shadowBlur: 3,
+						shadowColor: "#aaa",
+						shadowOffsetX: 0,
+						shadowOffsetY: 1,
+						
+						opacity: 0.4
+					},
+					shadowStyle: {
+						color: "#fff",						
+						shadowBlur: 3,
+						shadowColor: "#aaa",
+						shadowOffsetX: 0,
+						shadowOffsetY: 1,						
+						opacity: 0.4
+					},
+					
+					triggerToolTip: true,
+					value: null,
+					status: "",
+					handle: {
+						show: true,
+						//icon: "",
+						size: 45,
+						margin: 50,
+						color: "#333",
+						throttle: 40,
+						
+						shadowBlur: 3,
+						shadowColor: "#aaa",
+						shadowOffsetX: 0,
+						shadowOffsetY: 1						
+					},
+					
+					//不同轴的 axisPointer 可以进行联动，在这里设置。联动表示轴能同步一起活动。轴依据他们的 axisPointer 当前对应的值来联动。
+					link: [],
+					triggerOn: "mousemove|click"
+				},
+			};
+
+					
+
+			basechart.setOption(option);
+		</script>
+	</body>
+
+</html>

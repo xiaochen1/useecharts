@@ -33,55 +33,60 @@
 			var basechart = echarts.init(document.getElementById('basebox')); //以basebox为容器，画图表
 			//所画图表的数据配置信息
 			var baseConfigData = {
-				title: { 
+				title: {
 					//title用于指定当前图表的标题部分的信息
-					id: "firstchart",  //组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件
+					id: "firstchart", //组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件
+					show: true, // 默认true,   是否显示标题组件
 					text: "图形的主标题",
 					link: "http://www.baidu.com", // 点击主标题要链接到的地址
 					target: "blank", // blank表示在新的标签页打开主标题链接的地址，self表示在当前标签页打开链接
 					textStyle: { //主标题文本样式
-						color: "#f00",  
+						color: "#f00",
 						fontStyle: "normal", //  'normal'    'italic'   'oblique'
 						fontWeight: "bold", //  主标题文字字体的粗细  'normal'     'bold'     'bolder'    'lighter'
 						fontSize: 20,
-						lineHeight: 20, 
-						align: "left",		//  left  center  right				
+						lineHeight: 20,
+						align: "left", //  left  center  right				
 						textBorderColor: "#f00",
 						textBorderWidth: 2,
 						textShadowColor: "#893",
 						textShadowBlur: 5,
 						textShadowOffsetX: 1,
-						textShadowOffsetY: 1,						
+						textShadowOffsetY: 1,
 					},
-					padding: 20,//主标题的内边距
-					itemGap: 30, //主副标题上下间距
 					
-					subtext: "图形的副标题", //副标题文本					
+					subtext: "图形的副标题", //副标题文本		
+					sublink: "/", // 点击副标题要链接到的地址
+					subtarget: "blank", // 新的标签页打开副标题链接的地址	
 					subtextStyle: {
 						align: 'center',
 					},
-					sublink: "/",// 点击副标题要链接到的地址
-					subtarget: "blank", // 新的标签页打开副标题链接的地址	
-					zlevel: 0,  //所有图形的 zlevel 值。zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。不同zlevel值的图形会放置在不同的 Canvas 中，过多的 Canvas 会引起内存开销的增大，
 					
+					triggerEvent: false,  //是否触发事件。 默认 false
+					
+					padding: 20, //主标题的内边距
+					itemGap: 30, //主副标题上下间距
+					
+					zlevel: 0, //所有图形的 zlevel 值。zlevel 大的 Canvas 会放在 zlevel 小的 Canvas 的上面。不同zlevel值的图形会放置在不同的 Canvas 中，过多的 Canvas 会引起内存开销的增大，
 					z: 2, //组件的所有图形的z值，控制图形的前后顺序，z值大  的图形会覆盖  z值小 的图形
-					top: ,  //grid 组件离容器        上   侧的距离。
-					right: , // grid 组件离容器     右  侧的距离。
-					bottom: , // grid 组件离容器   下   侧的距离。
-					left: ,  // grid 组件离容器     左    侧的距离。
 					
-					backgroundColor: "transparent" , // 标题背景色，默认透明。
+					top: 20, //grid 组件离容器        上   侧的距离。
+					right: 10, // grid 组件离容器     右  侧的距离。
+					bottom: 10, // grid 组件离容器   下   侧的距离。
+					left: 10, // grid 组件离容器     左    侧的距离。
+
+					backgroundColor: "transparent", // 标题背景色，默认透明。
 					borderColor: "red", //标题的边框线的颜色。
-					borderWidth: 2,	  // 标题的边框线的宽度。
-					borderRadius: 0,  //圆角的半径
-					
-					
-					shadowBlur: 10,  //阴影大小
-					shadowColor: "#aaa",
-					shadowOffsetX: 0,
-					shadowOffsetY: 0
-					
+					borderWidth: 2, // 标题的边框线的宽度。
+					borderRadius: 0, //圆角的半径
+
+					shadowBlur: 10, //阴影大小
+					shadowColor: "#aaa",  // //阴影颜色
+					shadowOffsetX: 0,  //阴影大小    x  偏移量
+					shadowOffsetY: 0,   //阴影大小   y  偏移量
+
 				},
+				
 				xAxis: {
 					type: "category",
 					data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
@@ -97,15 +102,15 @@
 					min: null, //坐标轴刻度的最小值
 					max: null, //坐标轴刻度的最大值
 					boundaryGap: true,
-					axisLine: {//x坐标轴轴线的相关设置
+					axisLine: { //x坐标轴轴线的相关设置
 						show: true, // 显示x轴的轴线
 						symbol: ["none", "arrow"], //x轴右边有箭头
-						symbolSize: [10,20], // x轴箭头的大小（宽、高）
-						symbolOffset: 5 , //轴线两边的箭头的偏移
+						symbolSize: [10, 20], // x轴箭头的大小（宽、高）
+						symbolOffset: 5, //轴线两边的箭头的偏移
 					},
 					axisTick: { //坐标轴刻度线相关设置
 						alignWithLabel: true, //刻度线和标签对齐
-						length: 5 ,  //坐标轴可读的长度
+						length: 5, //坐标轴可读的长度
 					},
 					splitLine: { //坐标轴在 grid 区域中的分隔线
 						show: false,
@@ -114,15 +119,15 @@
 						show: true,
 						snap: true,
 					},
-					z: 2 ,//X 轴组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。
+					z: 2, //X 轴组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。
 				},
 				yAxis: {
 					type: 'value'
 				},
 				grid: { //控制图标相对容器的显示的位置
-					top: 200,					
+					top: 200,
 					right: 140,
-					left: 140,		
+					left: 140,
 					containLabel: true,
 				},
 				series: [{
@@ -145,19 +150,19 @@
 					}
 				],
 				legend: { //图例组件。
-					data: ["成交","预购","意向"],
+					data: ["成交", "预购", "意向"],
 					itemGap: 20, //图例每项之间的间隔
 					itemHeight: 14,
 					orient: "vertical",
 					selected: {
-//						"意向": false,
-//						"成交": false,
+						//						"意向": false,
+						//						"成交": false,
 					},
-					top: 200,					
+					top: 200,
 					right: 40,
-					
+
 					inactiveColor: "#ccc",
-					
+
 				},
 				tooltip: { //提示框组件
 					show: true, // 是否显示提示框组件
@@ -166,24 +171,24 @@
 					hideDelay: 100,
 					showContent: true,
 					triggerOn: "mousemove|click",
-//					backgroundColor: "rgba(240,240,240,.6)" ,
+					//					backgroundColor: "rgba(240,240,240,.6)" ,
 					axisPointer: { //坐标轴指示器配置项。
 						type: "cross",
 						snap: true, //坐标轴指示器是否自动吸附到点上
-						label: {//坐标轴指示器的文本标签
+						label: { //坐标轴指示器的文本标签
 							fontSize: 12,
 							color: "#fff",
-							padding: [3,5,7,9],
+							padding: [3, 5, 7, 9],
 						},
 					},
-					
-//					formatter: "{a0}---{b0}----{c0}<br/>{a1}---{b1}----{c1}<br/>{a2}---{b2}----{c2}<br/>"
+
+					//					formatter: "{a0}---{b0}----{c0}<br/>{a1}---{b1}----{c1}<br/>{a2}---{b2}----{c2}<br/>"
 				},
 				toolbox: { // 工具箱
 					orient: "horizontal",
 					itemSize: 20,
 					itemGap: 20,
-					feature: {//各工具配置项。
+					feature: { //各工具配置项。
 						saveAsImage: {},
 						restore: {},
 						dataView: {},
@@ -192,11 +197,11 @@
 						brush: {},
 					},
 				},
-				
+
 				dataZoom: [{
 					type: "inside"
 				}],
-				
+
 			}
 			basechart.setOption(baseConfigData);
 		</script>

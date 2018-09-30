@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>toolbox字段完整解析</title>
+		<style type="text/css">
+			.container {
+				width: 1000px;
+				height: auto;
+				margin: 0 auto;
+			}
+			
+			#basebox {
+				width: 600px;
+				height: 600px;
+				margin-right: 20px;
+				float: left;
+				border: 1px solid #0f9;
+			}
+		</style>
+		<script src="js/echarts.min.js"></script>
+	</head>
+
+	<body>
+
+		<p>grid直角坐标系内绘图网格，单个 grid 内最多可以放置上下两个 X 轴，左右两个 Y 轴。可以在网格上绘制折线图，柱状图，散点图（气泡图）。</p>
+
+		<div class="container">
+			<div class="box" id="basebox" style="width: 100%; height: 600px;"></div>
+
+		</div>
+
+		<script>
+			var basechart = echarts.init(document.getElementById('basebox')); //以basebox为容器，画图表
+
+			var option = {
+
+					//工具栏。
+					toolbox: {
+						id: "toobox1", //组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。
+						show: true, //是否显示工具栏组件。 默认true
+						orient: "horizontal", //工具栏 icon 的布局朝向。 horizontal(水平)  vertical(垂直)
+						itemSize: 15, //工具栏 icon 的大小。
+						itemGap: 10, //工具栏 icon 每项之间的间隔。横向布局时为水平间隔，纵向布局时为纵向间隔
+						showTitle: true, //是否在鼠标 hover 的时候显示每个工具 icon 的标题。
+
+						//各工具配置项。保存为图片、  重置、 缩放 、数据视图、动态类型切换 、选框组件的控制按钮。
+						feature: {
+							saveAsImage: {
+								type: "png", //保存的图片格式。支持 'png' 和 'jpeg'。
+								name: "", //保存的文件名称，
+								backgroundColor: "#222", //保存的图片背景色，默认使用 backgroundColor，如果backgroundColor不存在的话会取白色。默认白色
+								excludeComponents: [],
+								show: true, //是否显示该工具。 默认 true
+								title: "保存为图片", //默认 保存为图片
+								//icon: "image://http://xxx.xxx.xxx/a/b.png",
+								iconStyle: {
+									color: "auto",
+									borderColor: "#444",
+									borderWidth: 2,
+									borderType: "solid",
+
+									shadowBlur: 2,
+									shadowColor: "#888",
+									shadowOffsetX: 0, //阴影水平方向上的偏移距离。
+									shadowOffsetY: 0, //阴影垂直方向上的偏移距离。
+
+									opacity: 0.4, //图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+									textPosition: "right", // top  right  bottom  left
+									textAlign: "left", // left  right 
+
+								},
+								emphasis: {},
+								pixelRatio: 1
+							},
+
+							restore: {
+								show: true,
+								title: "还原",
+								//icon: "",
+								iconStyle: {
+									color: "auto",
+									borderColor: "#666",
+									borderWidth: 2,
+									borderType: "solid",
+									shadowBlur: 2,
+									shadowColor: "#aaa",
+									shadowOffsetX: 1,
+									shadowOffsetY: 1,
+
+									opacity: 0.4,
+									textPosition: "left",
+									textAlign: "left"
+								},
+								exphasis: {
+									iconStyle: {
+										color: "auto",
+										borderColor: "#666",
+										borderWidth: 2,
+										borderType: "solid",
+										shadowBlur: 2,
+										shadowColor: "#aaa",
+										shadowOffsetX: 1,
+										shadowOffsetY: 1,
+										opacity: 0.4,
+									}
+								}
+							},
+
+							dataView: {},
+
+							//数据区域缩放。目前只支持直角坐标系的缩放。含 区域缩放 和 区域还原
+							dataZoom: {},
+
+							//动态类型切换 
+							magicType: {
+								show: true,
+
+								type: ["line"], //启用的动态类型，包括'line'（切换为折线图）, 'bar'（切换为柱状图）, 'stack'（切换为堆叠模式）, 'tiled'（切换为平铺模式）。
+
+								title: {
+									line: "切换为折线图",
+									bar: "切换为柱状图",
+									stack: "切换为堆叠",
+									tiled: "切换为平铺"
+								},
+								icon: {
+									line: "",
+									bar: "",
+									stack: "",
+									tiled: "",
+								},
+								iconStyle: {
+									color: "auto",
+									borderColor: "#444",
+									borderWidth: 2,
+									borderType: "solid",
+
+									shadowBlur: 2,
+									shadowColor: "#888",
+									shadowOffsetX: 0, //阴影水平方向上的偏移距离。
+									shadowOffsetY: 0, //阴影垂直方向上的偏移距离。
+
+									opacity: 0.4, //图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+									textPosition: "right", // top  right  bottom  left
+									textAlign: "left", // left  right 
+
+								},
+								emphasis: {},
+								pixelRatio: 1
+							},
+
+							emphasis: {
+								iconStyle: {
+									color: "auto",
+									borderColor: "#666",
+									borderWidth: 2,
+									borderType: "solid",
+									shadowBlur: 2,
+									shadowColor: "#aaa",
+									shadowOffsetX: 1,
+									shadowOffsetY: 1,
+									opacity: 0.4,
+								}
+							},
+							option: {
+								line: {},
+								bar: {},
+								stack: {},
+								tiled: {}
+							},
+							seriesIndex: {
+								line: [],
+								bar: [],
+								stack: [],
+								tiled: []
+							},
+
+							brush: {
+								type: ["rect", "polygon", "lineX", "lineY", "keep", "clear"],
+								icon: {
+									rect: "",
+									polygon: "",
+									lineX: "",
+									lineY: "",
+									rect: "",
+									polygon: "",
+									lineX: "",
+									lineY: "",
+									keep: "",
+									clear: ""
+									keep: "",
+									clear: ""
+								},
+								title: {
+									rect: "矩形选择",
+									polygon: "圈选",
+									lineX: "横向选择",
+									lineY: "纵向选择",
+									keep: "保持选择",
+									clear: "清除选择"
+								}
+							}
+						},
+
+						//						brush: {}
+					},
+
+					iconStyle: {},
+					emphasis: {},
+
+					zlevel: 0, //所有图形的 zlevel 值。
+					z: 3, //组件的所有图形的z值。控制图形的前后顺序。z值小的图形会被z值大的图形覆盖。
+					top: 0, //工具栏组件离容器        上   侧的距离。
+					right: 10, //工具栏组件离容器     右  侧的距离。
+					bottom: 10, //工具栏组件离容器   下   侧的距离。
+					left: 10, //工具栏组件离容器     左   侧的距离。
+					width: "auto",
+					height: "auto"
+				},
+
+				basechart.setOption(option);
+		</script>
+	</body>
+
+</html>

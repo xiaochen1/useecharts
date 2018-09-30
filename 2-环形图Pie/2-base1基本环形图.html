@@ -17,7 +17,7 @@
 			var myChart = echarts.init(document.getElementById('main'));
 
 			var option = option = {
-				
+
 				// tooltip 提示框组件， 鼠标移动到图表上时显示相关信息
 				tooltip: {
 					show: true, // 是否显示提示框组件，包括提示框浮层和axisPointer
@@ -31,7 +31,7 @@
 						lineStyle: {},
 						shadowStyle: {},
 						crossStyle: {},
-						
+
 					},
 					showContent: true, // 是否提示提示框浮层，默认显示，  只需tooltip 触发事件或者显示axisPointer而不需要显示内容时可配置该项为false
 					alwaysShowContent: false, // 是否永远显示提示框内容， 默认在移除可触发提示框区域后一定时间后隐藏，设置为true可保证一直显示提示框内容
@@ -41,12 +41,12 @@
 					enterable: false, // 鼠标是否可以进入到提示框的浮层中，默认为false,  如需详情内交互，如加按钮、链接，可设置为true
 					confine: false, // 是否将tooltip 框限制在图标的区域内
 					transitionDuration: 0.4, // 提示框浮层的移动动画过渡时间
-					position: [50%, 50%], // 提示框浮层的位置，默认不设置时位置会随着鼠标的位置移动而移动
-					formatter: "", // 复杂，看文档不同类型的图表其取值的方式不同 
+					position: [50% , 50% ], // 提示框浮层的位置，默认不设置时位置会随着鼠标的位置移动而移动
+					formatter: "a", // 复杂，看文档不同类型的图表其取值的方式不同 
 					backgroundColor: "", // 浮层框的背景颜色
 					borderColor: "", // 提示浮层框的边框颜色
-					borderWidth: "",  // 提示浮层框的边框的宽度
-					padding: 2,   // 提示浮层框的内边距
+					borderWidth: "", // 提示浮层框的边框的宽度
+					padding: 2, // 提示浮层框的内边距
 					textStyle: {},
 					extraCssText: "box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);", //额外附加到浮层的 css 样式。
 					formatter: "{a} <br/>{b}: {c} ({d}%)"
@@ -78,39 +78,39 @@
 					formatter: "{name}", //用来格式化图例文本，支持字符串模板和回调函数两种形式。
 
 					// 使用字符串模板，模板变量为图例名称 {name}
-//					formatter: 'Legend {name} 111',
+					//					formatter: 'Legend {name} 111',
 					// 使用回调函数
-//					formatter: function(name) {
-//						return 'Legend ' + name;
-//					}
+					//					formatter: function(name) {
+					//						return 'Legend ' + name;
+					//					}
 
 					selectedMode: true, //图例选择的模式，控制是否可以通过点击图例改变系列的显示状态。默认开启图例选择，可以设成 false 关闭。除此之外也可以设成 'single' 或者 'multiple' 使用单选或者多选模式。
 					inactiveColor: "#aaa", //图例关闭时的颜色
-//					selected: , // 图例选中状态表。
+					//					selected: , // 图例选中状态表。
 
 					textStyle: { //图例的公用文本样式。
 						color: "#839383",
 						fontStyle: "normal", // 文字字体的风格， normal  italic  oblique
 						fontWeight: 400, // 文字字体的粗细， normal   bold  bolder  lighter  100 200  300 ...
-//						fontFamily: , // 文字字体系列
-						fontSize: 20,   // 文字的字体大小
-						lineHeight: 20,  // 行高
+						//						fontFamily: , // 文字字体系列
+						fontSize: 20, // 文字的字体大小
+						lineHeight: 20, // 行高
 						backgroundColor: "#123456", //文字块背景色 
 						borderColor: "transparent", // 边框颜色 
-						borderWidth: 1,   // 边框宽度
-						borderRadius: 0,   // 边框圆角
+						borderWidth: 1, // 边框宽度
+						borderRadius: 0, // 边框圆角
 
-						padding: 5,   // 文字块的内边距
-						shadowColor: "#f00" , //文字块的背景阴影颜色
-						shadowBlur: 1 ,   // 文字块的背景阴影长度
+						padding: 5, // 文字块的内边距
+						shadowColor: "#f00", //文字块的背景阴影颜色
+						shadowBlur: 1, // 文字块的背景阴影长度
 						shadowOffsetX: 0, // 文字块的背景阴影X偏移
 						shadowOffsetY: 0, // 文字块的背景阴影Y偏移
-						width: "100%",   // 文字块的宽度，一般不指定，自动为文字的宽度
-						height: 20,    // 文字块的高度，一般不指定，自动为文字的高度
+						width: "100%", // 文字块的宽度，一般不指定，自动为文字的宽度
+						height: 20, // 文字块的高度，一般不指定，自动为文字的高度
 						textBorderColor: "#000000", // 文字本身的描边颜色
 						textBorderWidth: 0, // 文字本身的描边宽度
 						textShadowColor: "transparent", // 文字本身的阴影颜色
-						textShadowBlur: 1,  // 文字本身的阴影长度
+						textShadowBlur: 1, // 文字本身的阴影长度
 						textShadowOffsetX: 0, // 文字本身的阴影X偏移
 						textShadowOffsetY: 0, // 文字本身的阴影Y偏移
 
@@ -118,7 +118,7 @@
 					},
 					tooltip: {},
 
-					data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎'], //data中配置显示的字段,但是只有在series中的数据的data字段中某项的name中的值才能显示
+					data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎'], //data中配置显示的字段,但是只有在series中的数据的data字段中某项的name中的值才能显示
 
 					backgroundColor: "rgba(100,100,100,.4)", //图例背景色，默认透明
 					borderColor: "", //图例的边框颜色。
@@ -135,26 +135,26 @@
 					pageFormatter: '{current}/{total}', //type 为 'scroll' 时有效。图例控制块中，页信息的显示格式。默认为 '{current}/{total}'，其中 {current} 是当前页号（从 1 开始计数），{total} 是总页数。
 					pageIcon: {}, //type 为 'scroll' 时有效。图例控制块的图标。
 					pageIconColor: "#0f0", //type 为 'scroll' 时有效。翻页按钮的颜色。
-					pageIconInactiveColor: "#0ff" , // type 为 'scroll' 时有效。翻页按钮不激活时（即翻页到头时）的颜色。
-					pageIconSize: 20 , //type 为 'scroll' 时有效。翻页按钮的大小。可以是数字，也可以是数组，如 [10, 3]，表示 [宽，高]。
-					pageTextStyle: {//type 为 'scroll' 时有效。图例页信息的文字样式。
+					pageIconInactiveColor: "#0ff", // type 为 'scroll' 时有效。翻页按钮不激活时（即翻页到头时）的颜色。
+					pageIconSize: 20, //type 为 'scroll' 时有效。翻页按钮的大小。可以是数字，也可以是数组，如 [10, 3]，表示 [宽，高]。
+					pageTextStyle: { //type 为 'scroll' 时有效。图例页信息的文字样式。
 						color: "#aaa",
 						fontStyle: "normal", // 文字字体的风格， normal  italic  oblique
 						fontWeight: 400, // 文字字体的粗细， normal   bold  bolder  lighter  100 200  300 ...
-//						fontFamily: , // 文字字体系列
-						fontSize: 20,   // 文字的字体大小
-						lineHeight: 40,  // 行高
-						
-						width: "100%",   // 文字块的宽度，一般不指定，自动为文字的宽度
-						height: 20,    // 文字块的高度，一般不指定，自动为文字的高度
-						
+						//						fontFamily: , // 文字字体系列
+						fontSize: 20, // 文字的字体大小
+						lineHeight: 40, // 行高
+
+						width: "100%", // 文字块的宽度，一般不指定，自动为文字的宽度
+						height: 20, // 文字块的高度，一般不指定，自动为文字的高度
+
 						textBorderColor: "#000000", // 文字本身的描边颜色
 						textBorderWidth: 0, // 文字本身的描边宽度
 						textShadowColor: "transparent", // 文字本身的阴影颜色
-						textShadowBlur: 1,  // 文字本身的阴影长度
+						textShadowBlur: 1, // 文字本身的阴影长度
 						textShadowOffsetX: 0, // 文字本身的阴影X偏移
 						textShadowOffsetY: 0, // 文字本身的阴影Y偏移
-					}, 
+					},
 					animation: true, //boolean图例翻页是否使用动画。
 					animationDurationUpdate: 800, //number, 图例翻页时的动画时长
 				},

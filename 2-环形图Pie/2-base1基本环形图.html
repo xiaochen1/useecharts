@@ -41,11 +41,11 @@
 					enterable: false, // 鼠标是否可以进入到提示框的浮层中，默认为false,  如需详情内交互，如加按钮、链接，可设置为true
 					confine: false, // 是否将tooltip 框限制在图标的区域内
 					transitionDuration: 0.4, // 提示框浮层的移动动画过渡时间
-					position: [50% , 50% ], // 提示框浮层的位置，默认不设置时位置会随着鼠标的位置移动而移动
-					formatter: "a", // 复杂，看文档不同类型的图表其取值的方式不同 
-					backgroundColor: "", // 浮层框的背景颜色
-					borderColor: "", // 提示浮层框的边框颜色
-					borderWidth: "", // 提示浮层框的边框的宽度
+					position: ['50%', '50%'], // 提示框浮层的位置，默认不设置时位置会随着鼠标的位置移动而移动
+					//formatter: "{a}", // 复杂，看文档不同类型的图表其取值的方式不同 
+					backgroundColor: "#473372", // 浮层框的背景颜色
+					borderColor: "#ccc", // 提示浮层框的边框颜色
+					borderWidth: "1", // 提示浮层框的边框的宽度
 					padding: 2, // 提示浮层框的内边距
 					textStyle: {},
 					extraCssText: "box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);", //额外附加到浮层的 css 样式。
@@ -161,7 +161,8 @@
 				series: [{
 					name: '访问来源',
 					type: 'pie',
-					radius: ['50%', '70%'],
+					center: ['50%', '50%'], //当前所画圆的圆心的位置，数组的第一、二个分别是   x  和  y  的位置。
+					radius: ['50%', '70%'],  //圆的半径，数组的第一、二个分别是   内半径  和  外半径。 
 					avoidLabelOverlap: false,
 					label: {
 						normal: {
@@ -176,9 +177,17 @@
 							}
 						}
 					},
+					//roseType: "radius",  //是否展示成南丁格尔图，通过半径区分数据大小。可选择两种模式：'radius' 扇区圆心角展现数据的百分比，半径展现数据的大小。'area' 所有扇区圆心角相同，仅通过半径展现数据大小。
 					labelLine: {
 						normal: {
 							show: false
+						}
+					},
+					itemStyle: {
+						emphasis: {
+							shadowBlur: 50,
+							shadowOffsetX: 10,
+							shadowColor: 'rgba(100, 0, 0, 0.5)'
 						}
 					},
 					data: [{
@@ -200,25 +209,39 @@
 						{
 							value: 1548,
 							name: '搜索引擎'
+						}
+					]
+				}, {
+					name: '访问来源',
+					type: 'pie',
+					selectedMode: 'single',
+					radius: [0, '30%'],
+
+					label: {
+						normal: {
+							position: 'inner'
+						}
+					},
+					labelLine: {
+						normal: {
+							show: false
+						}
+					},
+					data: [{
+							value: 335,
+							name: '直达',
+							selected: true
 						},
 						{
-							value: 310,
-							name: '邮件营销1'
-						},
-						{
-							value: 234,
-							name: '联盟广告1'
-						},
-						{
-							value: 135,
-							name: '视频广告1'
+							value: 679,
+							name: '营销广告'
 						},
 						{
 							value: 1548,
-							name: '搜索引擎1'
+							name: '搜索引擎'
 						}
 					]
-				}]
+				}, ]
 			};
 
 			// 使用刚指定的配置项和数据显示图表。
